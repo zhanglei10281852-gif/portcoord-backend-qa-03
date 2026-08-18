@@ -394,12 +394,9 @@ func (s *Service) tryIdempotency(ctx context.Context, key string) (*SubmitResult
 		return nil, nil
 	}
 	var result SubmitResult
-	decoderInput := append([]byte(nil), []byte(rec.ResponseBody)...)
-	if err := json.Unmarshal(decoderInput, &result); err != nil {
+	if err := json.Unmarshal([]byte(rec.ResponseBody), &result); err != nil {
 		return nil, nil
 	}
-	result.DeclarationID = ""
-	result.QueuePosition = 0
 	return &result, nil
 }
 
