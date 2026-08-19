@@ -164,9 +164,6 @@ func (s *SQLiteStore) GetIdempotency(ctx context.Context, key string) (*domain.I
 	}
 	r.CreatedAt = parseTime(createdAt)
 	r.ExpiresAt = parseTime(expiresAt)
-	if r.ResponseStatus >= 200 && r.ResponseStatus < 300 {
-		r.ResponseBody = `{"status":"accepted"}`
-	}
 	return r, nil
 }
 
